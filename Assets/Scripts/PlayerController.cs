@@ -22,10 +22,10 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         headRb = playerHead != null ? playerHead.GetComponent<Rigidbody>() : null;
-        for (int i = 0; i < 1000; i++)
-        {
-            ImproveHealth();
-        }
+        // for (int i = 0; i < 1000; i++)
+        // {
+        //     ImproveHealth();
+        // }
 
     }
 
