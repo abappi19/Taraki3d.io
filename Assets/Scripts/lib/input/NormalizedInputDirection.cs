@@ -8,7 +8,7 @@ public class NormalizedInputDirection
 
     public NormalizedInputDirection(Vector3 initialDirection, bool preventBackwardMovement)
     {
-        NormDirection = initialDirection == Vector3.zero ? Vector3.forward : initialDirection.normalized;
+        NormDirection = initialDirection.normalized;
         this.PreventBackwardMovement = preventBackwardMovement;
     }
 

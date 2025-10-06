@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 923879941932527856}
   - component: {fileID: 5295540410491360570}
   - component: {fileID: 6621346425788398658}
-  - component: {fileID: 2642040339548863466}
+  - component: {fileID: 5324472206977962969}
   m_Layer: 0
   m_Name: BodyPrefab
   m_TagString: Untagged
@@ -90,7 +90,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2642040339548863466
+--- !u!135 &5324472206977962969
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,5 +109,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.45828485
+  m_Center: {x: 0, y: -0.009438992, z: 0.013179779}

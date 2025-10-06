@@ -1,17 +1,17 @@
 using UnityEngine;
 public class ExtraGravity : MonoBehaviour
 {
+
+    public Terrain groundTerrain;
     public bool preventGoingUnderGround = true;
-    public float allowedUnderGroundHeight = -0.6f;
-    public float defaultUnderGroundHeight = -0.1f;
-    public bool useRigidBodyTransform = false;
+    public bool useRigidBodyTransform = true;
+    public float jumpHeight = 0.05f;
 
     private Transform objectTransform;
 
     void Start()
     {
         objectTransform = useRigidBodyTransform ? GetComponent<Rigidbody>().transform : transform;
-
     }
 
     void FixedUpdate()
@@ -22,9 +22,12 @@ public class ExtraGravity : MonoBehaviour
 
     private void PreventGoingUnderGround()
     {
-        if (objectTransform.position.y < allowedUnderGroundHeight)
+        Vector3 origin = new(objectTransform.position.x, 0f, objectTransform.position.z);
+        float terrainHeight = groundTerrain.SampleHeight(origin);
+
+        if (terrainHeight >= objectTransform.position.y)
         {
-            objectTransform.position = new Vector3(objectTransform.position.x, defaultUnderGroundHeight, objectTransform.position.z);
+            objectTransform.position = new Vector3(objectTransform.position.x, terrainHeight + jumpHeight, objectTransform.position.z);
         }
     }
 

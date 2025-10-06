@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private NormalizedInputDirection NID = new NormalizedInputDirection(Vector3.zero, true);
+    private NormalizedInputDirection NID = new NormalizedInputDirection(Vector3.forward, true);
 
     //states
-    public float moveSpeed = 5f;
     public GameObject playerHead;
+    public float moveSpeed = 5f;
+    public float rotateSpeed = 750f;
     public GameObject playerBodyPrefab;
     public float bodyGap = 0.5f;
+    public float bodyScale = 1f;
     private Vector3 cachedMoveDirection;
 
 
@@ -22,10 +24,10 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         headRb = playerHead != null ? playerHead.GetComponent<Rigidbody>() : null;
-        // for (int i = 0; i < 1000; i++)
-        // {
-        //     ImproveHealth();
-        // }
+        for (int i = 0; i < 1000; i++)
+        {
+            ImproveHealth();
+        }
 
     }
 
@@ -55,11 +57,20 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateHeadPosition(Vector3 moveDirection)
     {
-        headRb.transform.Translate(moveDirection * moveSpeed * Time.fixedDeltaTime);
         if (moveDirection != Vector3.zero)
         {
-            // headRb.transform.rotation = Quaternion.LookRotation(moveDirection);
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            targetRotation.Normalize();
+            Quaternion newRotation = Quaternion.RotateTowards(
+              headRb.rotation,
+              targetRotation,
+              rotateSpeed * Time.fixedDeltaTime
+          );
+            headRb.MoveRotation(newRotation);
         }
+
+        Vector3 forwardMovement = headRb.transform.forward * moveSpeed * Time.fixedDeltaTime;
+        headRb.MovePosition(headRb.position + forwardMovement);
     }
 
     private void UpdateBodyPositions()
@@ -70,19 +81,20 @@ public class PlayerController : MonoBehaviour
         foreach (var bodyPart in playerBodies)
         {
             Vector3 currentPos = bodyPart.transform.position;
-            float distance = Vector3.Distance(prevPosition, currentPos);
+            Quaternion currentRotation = bodyPart.transform.rotation;
 
+            float distance = Vector3.Distance(prevPosition, currentPos);
             if (distance > bodyGap)
             {
                 Vector3 direction = (prevPosition - currentPos).normalized;
                 currentPos = prevPosition - (direction * bodyGap);
+                // currentRotation = prevRotation.normalized;
             }
             bodyPart.transform.position = currentPos;
             prevPosition = currentPos;
 
-            Quaternion currentRotation = bodyPart.transform.rotation;
-            bodyPart.transform.rotation = prevRotation;
-            prevRotation = currentRotation;
+            bodyPart.transform.rotation = currentRotation;
+            // prevRotation = currentRotation;
         }
     }
 
@@ -91,29 +103,15 @@ public class PlayerController : MonoBehaviour
     {
         GameObject body = Instantiate(playerBodyPrefab, transform);
         Vector3 lastPlayerBodyPosition = playerBodies.Count == 0 ? headRb.transform.position : playerBodies.Last().transform.position;
+
+
+
         body.transform.position = lastPlayerBodyPosition;
+        body.transform.localScale = new Vector3(bodyScale, bodyScale, bodyScale);
         playerBodies.Add(body);
     }
     private void DecreaseHealth()
     {
 
     }
-
-    private void AddForce()
-    {
-        Vector3 origin = headRb != null ? headRb.position : transform.position;
-        bool grounded = Physics.Raycast(origin, Vector3.down, out RaycastHit hit, 2f) && hit.collider is TerrainCollider;
-        Debug.Log(
-            "Grounded: "
-        + grounded
-        + " is Tarrain: "
-        + hit.collider is TerrainCollider
-        );
-
-        // if (!grounded)
-        // {
-        //     headRb.AddForce(Vector3.down * extraGravity, ForceMode.Acceleration);
-        // }
-    }
-
 }
