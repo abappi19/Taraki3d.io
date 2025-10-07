@@ -15,14 +15,14 @@ public class MovementTracker
         }
     }
 
-    private float gapBetweenPoints;
-    private float rotateSpeed;
+    private int gapBetweenPoints;
+    private float moveSpeed;
     private List<MovementPoint> movementPoints = new List<MovementPoint>();
 
-    public MovementTracker(float gapBetweenPoints, float rotateSpeed)
+    public MovementTracker(int gapBetweenPoints, float moveSpeed)
     {
         this.gapBetweenPoints = gapBetweenPoints;
-        this.rotateSpeed = rotateSpeed;
+        this.moveSpeed = moveSpeed;
     }
 
     public void InsertMovementPoint(Vector3 position, Quaternion rotation)
@@ -46,11 +46,12 @@ public class MovementTracker
         int index = 0;
         foreach (var obj in objects)
         {
-            MovementPoint targetPoint = movementPoints[Mathf.Min(index * 13, movementPoints.Count - 1)];
+            // 13 for train
+            MovementPoint targetPoint = movementPoints[Mathf.Min(index * gapBetweenPoints, movementPoints.Count - 1)];
             Vector3 direction = targetPoint.position - obj.transform.position;
             obj.transform.LookAt(targetPoint.position);
-            int speed = 4;
-            obj.transform.position += direction * speed * Time.deltaTime;
+            // int speed = 4; // for train
+            obj.transform.position += direction * moveSpeed * Time.deltaTime;
 
             index++;
         }

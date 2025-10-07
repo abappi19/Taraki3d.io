@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         NID = new NormalizedInputDirection(Vector3.forward, true);
-        movementTracker = new MovementTracker(bodyGap, rotateSpeed);
+        movementTracker = new MovementTracker(2, 15);
         playerBodies = new List<GameObject>();
 
         // headRb = playerHead != null ? playerHead.GetComponent<Rigidbody>() : null;
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             ImproveHealth();
         }
@@ -122,6 +122,14 @@ public class PlayerController : MonoBehaviour
         GameObject body = Instantiate(playerBodyPrefab, transform);
         Vector3 lastPlayerBodyPosition = playerBodies.Count == 0 ? playerHead.transform.position : playerBodies.Last().transform.position;
 
+        if (playerBodies.Count < 3)
+        {
+            Collider collider = body.GetComponent<Collider>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+        }
 
 
         body.transform.position = lastPlayerBodyPosition;
