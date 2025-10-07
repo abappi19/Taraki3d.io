@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void ImproveHealth()
+    public void ImproveHealth()
     {
         GameObject body = Instantiate(playerBodyPrefab, transform);
         Vector3 lastPlayerBodyPosition = playerBodies.Count == 0 ? playerHead.transform.position : playerBodies.Last().transform.position;
@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
         body.transform.localScale = new Vector3(bodyScale, bodyScale, bodyScale);
         playerBodies.Add(body);
     }
-    private void DecreaseHealth()
+    public void DecreaseHealth()
     {
 
     }

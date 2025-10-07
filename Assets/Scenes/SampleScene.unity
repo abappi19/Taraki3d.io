@@ -246,6 +246,58 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &321456698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 321456700}
+  - component: {fileID: 321456699}
+  m_Layer: 0
+  m_Name: FoodArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &321456699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321456698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b3066050f9194fac8f39291434f02da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FoodGenerator
+  foodPrefab: {fileID: 1415065633607315517, guid: a0cb72a66339041c8b2711f572c7a911, type: 3}
+  player: {fileID: 355454509}
+  radius: 10
+  terrain: {fileID: 1963217574}
+  surfaceYOffset: 0.05
+  spawnIntervalSeconds: 1
+  maxFoodPerBatch: 10
+  autoStart: 1
+--- !u!4 &321456700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321456698}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.98409, y: 26.89225, z: -169.68668}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &355454509 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8422713293563726555, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
@@ -454,37 +506,6 @@ MonoBehaviour:
   - {x: 0, y: 7.82, z: -6.38}
   - {x: 0, y: 2, z: -3.5}
   currentOffsetIndex: 0
---- !u!1 &869679578
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 869679579}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &869679579
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 869679578}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0.17611, z: -0.03696}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &876293822
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -581,6 +602,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6429018533946589741, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
+      propertyPath: m_Name
+      value: Magnet
+      objectReference: {fileID: 0}
     - target: {fileID: 8422713293563726555, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
       propertyPath: m_Name
       value: HeadPrefab
@@ -595,6 +620,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8422713293563726555, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 355454522}
+    - targetCorrespondingSourceObject: {fileID: 6429018533946589741, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2002829651}
   m_SourcePrefab: {fileID: 100100000, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
 --- !u!1 &1116380269
 GameObject:
@@ -741,6 +769,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2002829647 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6429018533946589741, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
+  m_PrefabInstance: {fileID: 876293822}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2002829651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002829647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5b9c396bd9294e919979d3b707d1500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MouthController
+  player: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -748,4 +794,4 @@ SceneRoots:
   - {fileID: 170076735}
   - {fileID: 1963217575}
   - {fileID: 1116380271}
-  - {fileID: 869679579}
+  - {fileID: 321456700}
