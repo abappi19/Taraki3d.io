@@ -1,30 +1,42 @@
 using System.Collections.Generic;
 using System.Linq;
+
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private NormalizedInputDirection NID = new NormalizedInputDirection(Vector3.forward, true);
+    // private Rigidbody headRb;
 
     //states
     public GameObject playerHead;
     public float moveSpeed = 5f;
     public float rotateSpeed = 750f;
     public GameObject playerBodyPrefab;
-    public float bodyGap = 0.5f;
+    public float bodyGap = 0.01f;
     public float bodyScale = 1f;
     private Vector3 cachedMoveDirection;
 
 
 
-    private List<GameObject> playerBodies = new List<GameObject>();
-    private Rigidbody headRb;
+    private NormalizedInputDirection NID;
+    private MovementTracker movementTracker;
+    private List<GameObject> playerBodies;
+
+    private void Awake()
+    {
+        NID = new NormalizedInputDirection(Vector3.forward, true);
+        movementTracker = new MovementTracker(bodyGap, rotateSpeed);
+        playerBodies = new List<GameObject>();
+
+        // headRb = playerHead != null ? playerHead.GetComponent<Rigidbody>() : null;
+
+
+    }
 
 
     void Start()
     {
-        headRb = playerHead != null ? playerHead.GetComponent<Rigidbody>() : null;
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 10; i++)
         {
             ImproveHealth();
         }
@@ -51,6 +63,7 @@ public class PlayerController : MonoBehaviour
 
         UpdateHeadPosition(moveDirection);
         // AddForce();
+
         UpdateBodyPositions();
 
     }
@@ -62,22 +75,27 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
             targetRotation.Normalize();
             Quaternion newRotation = Quaternion.RotateTowards(
-              headRb.rotation,
+              playerHead.transform.rotation,
               targetRotation,
               rotateSpeed * Time.fixedDeltaTime
           );
-            headRb.MoveRotation(newRotation);
+            playerHead.transform.rotation = newRotation;
         }
 
-        Vector3 forwardMovement = headRb.transform.forward * moveSpeed * Time.fixedDeltaTime;
-        headRb.MovePosition(headRb.position + forwardMovement);
+        Vector3 forwardMovement = playerHead.transform.forward * moveSpeed * Time.fixedDeltaTime;
+        playerHead.transform.position = playerHead.transform.position + forwardMovement;
+
+        movementTracker.InsertMovementPoint(playerHead.transform.position, playerHead.transform.rotation);
     }
 
     private void UpdateBodyPositions()
     {
+        movementTracker.FollowMovement(playerBodies);
 
-        Vector3 prevPosition = headRb.transform.position;
-        Quaternion prevRotation = headRb.transform.rotation;
+        return;
+
+        Vector3 prevPosition = playerHead.transform.position;
+        Quaternion prevRotation = playerHead.transform.rotation;
         foreach (var bodyPart in playerBodies)
         {
             Vector3 currentPos = bodyPart.transform.position;
@@ -102,7 +120,7 @@ public class PlayerController : MonoBehaviour
     private void ImproveHealth()
     {
         GameObject body = Instantiate(playerBodyPrefab, transform);
-        Vector3 lastPlayerBodyPosition = playerBodies.Count == 0 ? headRb.transform.position : playerBodies.Last().transform.position;
+        Vector3 lastPlayerBodyPosition = playerBodies.Count == 0 ? playerHead.transform.position : playerBodies.Last().transform.position;
 
 
 
