@@ -24,6 +24,10 @@ public class MovementTracker
         this.gapBetweenPoints = gapBetweenPoints;
         this.moveSpeed = moveSpeed;
     }
+    public void setMoveSpeed(float moveSpeed)
+    {
+        this.moveSpeed = moveSpeed;
+    }
 
     public void InsertMovementPoint(Vector3 position, Quaternion rotation)
     {

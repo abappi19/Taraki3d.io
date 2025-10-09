@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     //states
     public GameObject playerHead;
     public float moveSpeed = 5f;
+    public float boostedMoveSpeed = 10f;
     public float rotateSpeed = 750f;
     public GameObject playerBodyPrefab;
     public float bodyGap = 0.01f;
@@ -23,22 +24,21 @@ public class PlayerController : MonoBehaviour
 
 
 
+
     private NormalizedInputDirection NID;
     private MovementTracker movementTracker;
     private List<GameObject> playerBodies;
 
+
     private float energy;
+    private float currentMoveSpeed;
 
     private void Awake()
     {
         NID = new NormalizedInputDirection(inputType, Vector3.forward, true, playerHead);
-        movementTracker = new MovementTracker(2, 15);
+        movementTracker = new MovementTracker(2, moveSpeed * 6);
         playerBodies = new List<GameObject>();
-
-
-        // headRb = playerHead != null ? playerHead.GetComponent<Rigidbody>() : null;
-
-
+        currentMoveSpeed = moveSpeed;
     }
 
 
@@ -51,6 +51,17 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (!isPlayer) return;
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            currentMoveSpeed = boostedMoveSpeed;
+            movementTracker.setMoveSpeed(boostedMoveSpeed * 6);
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            currentMoveSpeed = moveSpeed;
+            movementTracker.setMoveSpeed(moveSpeed * 6);
+        }
+
         cachedMoveDirection = NID.GetDirection();
     }
 
@@ -62,7 +73,7 @@ public class PlayerController : MonoBehaviour
     private void FixedTransform(Vector3 moveDirection)
     {
 
-        // if (isPlayer) UpdateHeadPosition(moveDirection);
+        if (isPlayer) UpdateHeadPosition(moveDirection);
 
         movementTracker.InsertMovementPoint(playerHead.transform.position, playerHead.transform.rotation);
 
@@ -84,7 +95,7 @@ public class PlayerController : MonoBehaviour
             playerHead.transform.rotation = newRotation;
         }
 
-        Vector3 forwardMovement = playerHead.transform.forward * moveSpeed * Time.fixedDeltaTime;
+        Vector3 forwardMovement = playerHead.transform.forward * currentMoveSpeed * Time.fixedDeltaTime;
         playerHead.transform.position = playerHead.transform.position + forwardMovement;
     }
 

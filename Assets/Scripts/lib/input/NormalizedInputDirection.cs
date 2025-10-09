@@ -60,23 +60,17 @@ public class NormalizedInputDirection
     {
         Vector3 mousePos = Input.mousePosition;
         Vector3 screenCenter = new Vector3(mainCamera.pixelWidth * 0.5f, mainCamera.pixelHeight * 0.5f, 0f);
-        
+
         // Calculate offset from screen center
         float x = (mousePos.x - screenCenter.x) / Screen.width;
         float z = (mousePos.y - screenCenter.y) / Screen.height;
-        
-        Vector3 inputDirection = new Vector3(x, 0f, z);
 
-        Debug.DrawLine(playerHead.transform.position, mousePos, Color.red);
+        Vector3 inputDirection = new Vector3(x, 0f, z);
 
         if (inputDirection != Vector3.zero)
         {
             Vector3 normalizedDir = inputDirection.normalized;
 
-            if (PreventBackwardMovement && Vector3.Dot(normalizedDir, NormDirection) < -0.9f)
-            {
-                return NormDirection;
-            }
             NormDirection = normalizedDir;
         }
 

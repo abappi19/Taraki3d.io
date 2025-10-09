@@ -1509,7 +1509,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   isPlayer: 1
   playerHead: {fileID: 355454509}
-  moveSpeed: 0.5
+  moveSpeed: 2.5
+  boostedMoveSpeed: 5
   rotateSpeed: 550
   playerBodyPrefab: {fileID: 7121407994503572563, guid: 8fdf9454eca8f434c8a460e9276686f8, type: 3}
   bodyGap: 0.01
