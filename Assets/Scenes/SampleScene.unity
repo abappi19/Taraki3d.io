@@ -1110,6 +1110,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 1096760990919792262, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1116380269}
     - target: {fileID: 2410162348793441800, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -1206,6 +1210,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2144846791626341204, guid: 8a1d832f53588406caa4310a1b27ece6, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1116380269}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1216,9 +1224,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8422713293563726555, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 355454522}
-    - targetCorrespondingSourceObject: {fileID: 6429018533946589741, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2002829651}
   m_SourcePrefab: {fileID: 100100000, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
 --- !u!1 &1015362776
 GameObject:
@@ -1513,7 +1518,6 @@ MonoBehaviour:
   boostedMoveSpeed: 5
   rotateSpeed: 550
   playerBodyPrefab: {fileID: 7121407994503572563, guid: 8fdf9454eca8f434c8a460e9276686f8, type: 3}
-  bodyGap: 0.01
   bodyScale: 0.2
   initialEnergy: 10
   inputType: 1
@@ -2466,24 +2470,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45aa7baacf3cc6442be13c43f5a6349e, type: 3}
---- !u!1 &2002829647 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6429018533946589741, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
-  m_PrefabInstance: {fileID: 876293822}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2002829651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2002829647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b9c396bd9294e919979d3b707d1500, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MouthController
-  player: {fileID: 1116380269}
 --- !u!1 &2019326691
 GameObject:
   m_ObjectHideFlags: 0

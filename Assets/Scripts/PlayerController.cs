@@ -14,10 +14,9 @@ public class PlayerController : MonoBehaviour
     public float boostedMoveSpeed = 10f;
     public float rotateSpeed = 750f;
     public GameObject playerBodyPrefab;
-    public float bodyGap = 0.01f;
     public float bodyScale = 1f;
     public float initialEnergy = 10f;
-
+    private float bodyMovementMultiplier = 6f; // for train 2.5 for sphare 6
     [Header("Input Settings")]
     public InputType inputType = InputType.Keyboard;
     private Vector3 cachedMoveDirection;
@@ -32,11 +31,13 @@ public class PlayerController : MonoBehaviour
 
     private float energy;
     private float currentMoveSpeed;
+    private bool isSpeedBoosted = false;
 
     private void Awake()
     {
         NID = new NormalizedInputDirection(inputType, Vector3.forward, true, playerHead);
-        movementTracker = new MovementTracker(2, moveSpeed * 6);
+        //movement tracker for train 4 for sphare 2
+        movementTracker = new MovementTracker(2, moveSpeed * bodyMovementMultiplier);
         playerBodies = new List<GameObject>();
         currentMoveSpeed = moveSpeed;
     }
@@ -48,20 +49,27 @@ public class PlayerController : MonoBehaviour
         adjustBodyPart();
     }
 
+    private bool getCurrentSpeedBoosted()
+    {
+        return inputType switch
+        {
+            InputType.Mouse => Input.GetKey(KeyCode.Mouse0),
+            InputType.Keyboard => Input.GetKey(KeyCode.Space),
+            InputType.Touch => Input.touchCount > 1,
+            _ => false,
+        };
+
+    }
     void Update()
     {
         if (!isPlayer) return;
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        bool newIsSpeedBoosted = getCurrentSpeedBoosted();
+        if (newIsSpeedBoosted != isSpeedBoosted)
         {
-            currentMoveSpeed = boostedMoveSpeed;
-            movementTracker.setMoveSpeed(boostedMoveSpeed * 6);
+            isSpeedBoosted = newIsSpeedBoosted;
+            currentMoveSpeed = isSpeedBoosted ? boostedMoveSpeed : moveSpeed;
+            movementTracker.setMoveSpeed(currentMoveSpeed * bodyMovementMultiplier);
         }
-        if (Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            currentMoveSpeed = moveSpeed;
-            movementTracker.setMoveSpeed(moveSpeed * 6);
-        }
-
         cachedMoveDirection = NID.GetDirection();
     }
 
@@ -69,6 +77,7 @@ public class PlayerController : MonoBehaviour
     {
         FixedTransform(cachedMoveDirection);
     }
+
 
     private void FixedTransform(Vector3 moveDirection)
     {
