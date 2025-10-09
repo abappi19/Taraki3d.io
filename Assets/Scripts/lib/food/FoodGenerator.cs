@@ -44,21 +44,22 @@ public class FoodGenerator : MonoBehaviour
     public void StartSpawning()
     {
         if (foodPrefab == null) return;
-        if (!IsInvoking(nameof(GenerateFoodBatch)))
+        if (!IsInvoking(nameof(InvokableGenerateFoodBatch)))
         {
             // Optional immediate spawn
-            InvokeRepeating(nameof(GenerateFoodBatch), spawnIntervalSeconds, spawnIntervalSeconds);
+            InvokeRepeating(nameof(InvokableGenerateFoodBatch), spawnIntervalSeconds, spawnIntervalSeconds);
         }
     }
 
     public void StopSpawning()
     {
-        CancelInvoke(nameof(GenerateFoodBatch));
+        CancelInvoke(nameof(InvokableGenerateFoodBatch));
     }
 
-    public void GenerateFoodBatch()
+    public void InvokableGenerateFoodBatch()
     {
         int totalFood = GameObject.FindGameObjectsWithTag("Food").Length;
+
         if (totalFood >= maxTotalFood)
         {
             maxLimitReached = true;
@@ -79,6 +80,44 @@ public class FoodGenerator : MonoBehaviour
         }
     }
 
+
+    public void GenerateFoodBatch(Vector3? origin = null, bool ignoreLimit = false, int? randomFoodCount = null)
+    {
+        int totalFood = GameObject.FindGameObjectsWithTag("Food").Length;
+
+        if (!ignoreLimit)
+        {
+            if (totalFood >= maxTotalFood)
+            {
+                maxLimitReached = true;
+                return;
+            }
+
+            if (maxLimitReached)
+            {
+                if (totalFood >= minTotalFood) return;
+                maxLimitReached = false;
+            }
+        }
+
+
+        int randomMaxFoodPerBatch = randomFoodCount == null ? Random.Range(1, maxFoodPerBatch + 1) : randomFoodCount.Value;
+        for (int i = 0; i < randomMaxFoodPerBatch; i++)
+        {
+            Vector3? randomPosition = origin;
+            if (randomPosition != null)
+            {
+                float smallerRadius = 0.2f;
+                float randomX = Random.Range(origin.Value.x - smallerRadius, origin.Value.x + smallerRadius);
+                float randomZ = Random.Range(origin.Value.z - smallerRadius, origin.Value.z + smallerRadius);
+                randomPosition = new Vector3(randomX, 0f, randomZ);
+            }
+
+            GenerateSingleFood(randomPosition);
+        }
+    }
+
+
     private Vector3? GetRandomPosition()
     {
 
@@ -96,11 +135,11 @@ public class FoodGenerator : MonoBehaviour
         return null;
     }
 
-    public void GenerateSingleFood()
+    public void GenerateSingleFood(Vector3? position = null)
     {
         if (foodPrefab == null) return;
 
-        Vector3? spawnPos = GetRandomPosition();
+        Vector3? spawnPos = position ?? GetRandomPosition();
         if (spawnPos == null) return;
         GameObject food = Instantiate(foodPrefab, spawnPos.Value, Quaternion.identity, transform);
         float randomScale = Random.Range(0.05f, 0.25f);

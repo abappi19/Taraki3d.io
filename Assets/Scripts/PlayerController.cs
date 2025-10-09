@@ -70,6 +70,10 @@ public class PlayerController : MonoBehaviour
             currentMoveSpeed = isSpeedBoosted ? boostedMoveSpeed : moveSpeed;
             movementTracker.setMoveSpeed(currentMoveSpeed * bodyMovementMultiplier);
         }
+        if (isSpeedBoosted)
+        {
+            DecreaseHealth(0.3f * Time.deltaTime);
+        }
         cachedMoveDirection = NID.GetDirection();
     }
 
@@ -148,8 +152,19 @@ public class PlayerController : MonoBehaviour
 
         if (totalEnergy < playerBodies.Count)
         {
-            // remove 1 body part ahead from last one
-            playerBodies.RemoveRange(totalEnergy - 1, playerBodies.Count - totalEnergy);
+            for (int i = totalEnergy; i < playerBodies.Count; i++)
+            {
+                Vector3 bodyPosition = playerBodies[i].transform.position;
+                Destroy(playerBodies[i]);
+                playerBodies.RemoveAt(i);
+
+                //get gameobject by tag
+                GameObject target = GameObject.FindGameObjectWithTag("FoodArea");
+                if (target != null)
+                {
+                    target.GetComponent<FoodGenerator>().GenerateFoodBatch(bodyPosition, true, 5);
+                }
+            }
             return;
         }
         //return if no change
