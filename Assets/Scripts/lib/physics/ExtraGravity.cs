@@ -2,8 +2,8 @@ using UnityEngine;
 public class ExtraGravity : MonoBehaviour
 {
 
-    public Terrain groundTerrain;
     public bool preventGoingUnderGround = true;
+    public LayerMask groundLayer;
     public bool useRigidBodyTransform = true;
     public float jumpHeight = 0.05f;
 
@@ -20,14 +20,26 @@ public class ExtraGravity : MonoBehaviour
 
     }
 
+    private float? GetGroundHeight()
+    {
+
+        Vector3 origin = new(objectTransform.position.x, 100f, objectTransform.position.z);
+        Physics.Raycast(origin, Vector3.down, out RaycastHit hit, 200f, groundLayer);
+        if (hit.collider != null)
+        {
+            return hit.point.y;
+        }
+        return null;
+    }
+
     private void PreventGoingUnderGround()
     {
-        Vector3 origin = new(objectTransform.position.x, 0f, objectTransform.position.z);
-        float terrainHeight = groundTerrain.SampleHeight(origin);
+        float? terrainHeight = GetGroundHeight();
+        if (terrainHeight == null) return;
 
         if (terrainHeight >= objectTransform.position.y)
         {
-            objectTransform.position = new Vector3(objectTransform.position.x, terrainHeight + jumpHeight, objectTransform.position.z);
+            objectTransform.position = new Vector3(objectTransform.position.x, terrainHeight.Value + jumpHeight, objectTransform.position.z);
         }
     }
 

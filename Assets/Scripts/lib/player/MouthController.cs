@@ -11,7 +11,7 @@ public class MouthController : MonoBehaviour
             EatFood(other.gameObject);
             PlayerController playerController = player.GetComponent<PlayerController>();
             if (playerController == null) return;
-            playerController.ImproveHealth();
+            playerController.ImproveHealth(other.gameObject.transform.localScale.x * 2f);
         }
     }
 

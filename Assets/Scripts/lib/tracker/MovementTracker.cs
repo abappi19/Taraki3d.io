@@ -44,13 +44,18 @@ public class MovementTracker
     {
 
         int index = 0;
+        int lastUsedIndex = 0;
         foreach (var obj in objects)
         {
-            // 13 for train
-            MovementPoint targetPoint = movementPoints[Mathf.Min(index * gapBetweenPoints, movementPoints.Count - 1)];
+            lastUsedIndex = Mathf.Min(index * gapBetweenPoints, movementPoints.Count - 1);
+            MovementPoint targetPoint = movementPoints[lastUsedIndex];
             Vector3 direction = targetPoint.position - obj.transform.position;
             obj.transform.LookAt(targetPoint.position);
             // int speed = 4; // for train
+            // get speed by distance between target point and object
+            float distance = Vector3.Distance(targetPoint.position, obj.transform.position);
+
+            float speed = (distance > 0.07f) ? 100f : moveSpeed;
             obj.transform.position += direction * moveSpeed * Time.deltaTime;
 
             index++;
@@ -58,9 +63,9 @@ public class MovementTracker
 
 
         // clean up unused points
-        if (movementPoints.Count > index)
+        if (movementPoints.Count > lastUsedIndex + 1)
         {
-            movementPoints.RemoveRange(index + 1, movementPoints.Count - 1);
+            movementPoints.RemoveRange(lastUsedIndex, movementPoints.Count - lastUsedIndex);
         }
 
         return;
