@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     private float currentMoveSpeed;
     private bool isSpeedBoosted = false;
     private FoodGenerator foodGenerator;
+    private NavMeshAgent navMeshAgent;
 
 
     private void Awake()
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             foodGenerator = FoodArea.GetComponent<FoodGenerator>();
         }
+        navMeshAgent = playerHead.GetComponent<NavMeshAgent>();
     }
 
 
@@ -73,7 +75,16 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        if (!isPlayer) return;
+        if (!isPlayer)
+        {
+
+            Vector3 nearestFoodPosition = getNearestFoodPosition();
+            if (navMeshAgent == null) return;
+            navMeshAgent.destination = nearestFoodPosition;
+            // make player look at forward direction
+            playerHead.transform.LookAt(transform.position + transform.forward);
+            return;
+        }
         bool newIsSpeedBoosted = getCurrentSpeedBoosted();
         if (newIsSpeedBoosted != isSpeedBoosted)
         {
@@ -228,6 +239,25 @@ public class PlayerController : MonoBehaviour
             DestroyGameObjectAndGenerateFood(body);
         }
 
+    }
+    private Vector3 getNearestFoodPosition()
+    {
+        // Pick a random food position first
+        Vector3 nearestPos = playerHead.transform.position;
+        GameObject[] foods = GameObject.FindGameObjectsWithTag("Food");
+        float nearestDist = float.MaxValue;
+        float searchRadius = 100f; // You can adjust search radius if you want a limit
+
+        foreach (var food in foods)
+        {
+            float dist = Vector3.Distance(playerHead.transform.position, food.transform.position);
+            if (dist < nearestDist && dist <= searchRadius)
+            {
+                nearestDist = dist;
+                nearestPos = food.transform.position;
+            }
+        }
+        return nearestPos;
     }
 
 }
