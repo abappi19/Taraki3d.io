@@ -4,15 +4,30 @@ using System.Collections;
 public class MouthController : MonoBehaviour
 {
     public GameObject player;
+    private PlayerController playerController;
+
+    private void Awake()
+    {
+        playerController = player.GetComponent<PlayerController>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Food"))
         {
             EatFood(other.gameObject);
-            PlayerController playerController = player.GetComponent<PlayerController>();
             if (playerController == null) return;
             playerController.ImproveHealth(other.gameObject.transform.localScale.x * 2f);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("OnCollisionEnter: " + collision.gameObject.name + " " + collision.gameObject.tag);
+        if (collision.gameObject.transform.IsChildOf(player.transform)) return; // own body
+        if (!collision.gameObject.CompareTag("Player")) return; // not collided with player
+        if (playerController == null) return;
+        playerController.DestroyPlayer();
     }
 
     private void EatFood(GameObject food)

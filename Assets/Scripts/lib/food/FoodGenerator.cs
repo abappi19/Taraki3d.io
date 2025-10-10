@@ -81,7 +81,7 @@ public class FoodGenerator : MonoBehaviour
     }
 
 
-    public void GenerateFoodBatch(Vector3? origin = null, bool ignoreLimit = false, int? randomFoodCount = null)
+    public void GenerateFoodBatch(Vector3? origin = null, bool ignoreLimit = false, int? randomFoodCount = null, float maxScale = 0.25f, float minScale = 0.05f)
     {
         int totalFood = GameObject.FindGameObjectsWithTag("Food").Length;
 
@@ -107,13 +107,13 @@ public class FoodGenerator : MonoBehaviour
             Vector3? randomPosition = origin;
             if (randomPosition != null)
             {
-                float smallerRadius = 0.2f;
+                float smallerRadius = 0.15f;
                 float randomX = Random.Range(origin.Value.x - smallerRadius, origin.Value.x + smallerRadius);
                 float randomZ = Random.Range(origin.Value.z - smallerRadius, origin.Value.z + smallerRadius);
-                randomPosition = new Vector3(randomX, 0f, randomZ);
+                randomPosition = new Vector3(randomX, origin.Value.y - surfaceYOffset, randomZ);
             }
 
-            GenerateSingleFood(randomPosition);
+            GenerateSingleFood(randomPosition, maxScale, minScale);
         }
     }
 
@@ -135,14 +135,14 @@ public class FoodGenerator : MonoBehaviour
         return null;
     }
 
-    public void GenerateSingleFood(Vector3? position = null)
+    public void GenerateSingleFood(Vector3? position = null, float maxScale = 0.25f, float minScale = 0.05f)
     {
         if (foodPrefab == null) return;
 
         Vector3? spawnPos = position ?? GetRandomPosition();
         if (spawnPos == null) return;
         GameObject food = Instantiate(foodPrefab, spawnPos.Value, Quaternion.identity, transform);
-        float randomScale = Random.Range(0.05f, 0.25f);
+        float randomScale = Random.Range(minScale, maxScale);
         //random color 
         Color randomColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
         food.GetComponent<Renderer>().material.color = randomColor;

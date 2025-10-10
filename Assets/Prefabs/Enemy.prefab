@@ -45,12 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bef27e1dd34c43e289a6e5b98efcbd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  isPlayer: 0
   playerHead: {fileID: 2858874860286672077}
   moveSpeed: 0.5
+  boostedMoveSpeed: 10
   rotateSpeed: 550
   playerBodyPrefab: {fileID: 7121407994503572563, guid: 8fdf9454eca8f434c8a460e9276686f8, type: 3}
-  bodyGap: 0.01
   bodyScale: 0.05
+  initialEnergy: 10
+  inputType: 0
 --- !u!1001 &6003226374049756694
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63,6 +66,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 1096760990919792262, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 501289971476247787}
     - target: {fileID: 2410162348793441800, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -204,8 +211,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1134507e21b84ec189c8935cdcf5669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExtraGravity
-  groundTerrain: {fileID: 0}
   preventGoingUnderGround: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   useRigidBodyTransform: 1
   jumpHeight: 0.05
 --- !u!54 &6621428076347640590

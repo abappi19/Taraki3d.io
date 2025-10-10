@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,6 +34,8 @@ public class PlayerController : MonoBehaviour
     private float energy;
     private float currentMoveSpeed;
     private bool isSpeedBoosted = false;
+    private FoodGenerator foodGenerator;
+
 
     private void Awake()
     {
@@ -40,6 +44,13 @@ public class PlayerController : MonoBehaviour
         movementTracker = new MovementTracker(2, moveSpeed * bodyMovementMultiplier);
         playerBodies = new List<GameObject>();
         currentMoveSpeed = moveSpeed;
+
+
+        GameObject FoodArea = GameObject.FindGameObjectWithTag("FoodArea");
+        if (FoodArea != null)
+        {
+            foodGenerator = FoodArea.GetComponent<FoodGenerator>();
+        }
     }
 
 
@@ -81,6 +92,9 @@ public class PlayerController : MonoBehaviour
     {
         FixedTransform(cachedMoveDirection);
     }
+
+
+
 
 
     private void FixedTransform(Vector3 moveDirection)
@@ -146,6 +160,7 @@ public class PlayerController : MonoBehaviour
         energy += newEnergy;
         adjustBodyPart();
     }
+
     private void adjustBodyPart()
     {
         int totalEnergy = (int)Mathf.Round(energy);
@@ -154,16 +169,8 @@ public class PlayerController : MonoBehaviour
         {
             for (int i = totalEnergy; i < playerBodies.Count; i++)
             {
-                Vector3 bodyPosition = playerBodies[i].transform.position;
-                Destroy(playerBodies[i]);
+                DestroyGameObjectAndGenerateFood(playerBodies[i]);
                 playerBodies.RemoveAt(i);
-
-                //get gameobject by tag
-                GameObject target = GameObject.FindGameObjectWithTag("FoodArea");
-                if (target != null)
-                {
-                    target.GetComponent<FoodGenerator>().GenerateFoodBatch(bodyPosition, true, 5);
-                }
             }
             return;
         }
@@ -178,7 +185,7 @@ public class PlayerController : MonoBehaviour
 
             if (playerBodies.Count < 3)
             {
-                Collider collider = body.GetComponent<Collider>();
+                Collider collider = body.GetComponent<SphereCollider>();
                 if (collider != null)
                 {
                     collider.enabled = false;
@@ -196,4 +203,31 @@ public class PlayerController : MonoBehaviour
         this.energy -= energy;
         adjustBodyPart();
     }
+
+    private void DestroyGameObjectAndGenerateFood(GameObject gameObject)
+    {
+
+        Vector3 bodyPosition = gameObject.transform.position;
+        Destroy(gameObject);
+
+        //get gameobject by tag
+        if (foodGenerator != null)
+        {
+            foodGenerator.GenerateFoodBatch(bodyPosition, true, 2, 0.1f, 0.05f);
+        }
+    }
+    public void DestroyPlayer()
+    {
+        if (foodGenerator != null && isPlayer)
+        {
+            foodGenerator.StopSpawning();
+        }
+        DestroyGameObjectAndGenerateFood(playerHead);
+        foreach (var body in playerBodies)
+        {
+            DestroyGameObjectAndGenerateFood(body);
+        }
+
+    }
+
 }
