@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8422713293563726555, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: PlayerHead
       objectReference: {fileID: 0}
     - target: {fileID: 2656762319867172617, guid: a1c2aad614cf441e4a3e42cbf0b28382, type: 3}
       propertyPath: m_LocalRotation.w

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Food
   - FoodArea
+  - PlayerHead
+  - PlayerBody
   layers:
   - Default
   - TransparentFX

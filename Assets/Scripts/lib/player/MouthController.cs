@@ -23,9 +23,10 @@ public class MouthController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("OnCollisionEnter: " + collision.gameObject.name + " " + collision.gameObject.tag);
         if (collision.gameObject.transform.IsChildOf(player.transform)) return; // own body
-        if (!collision.gameObject.CompareTag("Player")) return; // not collided with player
+        if (collision.gameObject.CompareTag("PlayerHead") && collision.collider.GetType() != typeof(CapsuleCollider)) return; // not collided by player head's capsule collider
+        if (!collision.gameObject.CompareTag("PlayerBody")) return; // not collided with player body
+
         if (playerController == null) return;
         playerController.DestroyPlayer();
     }
