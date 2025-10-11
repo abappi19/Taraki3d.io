@@ -285,7 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: moveSpeed
-      value: 2.3
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: initialEnergy
@@ -293,7 +293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: boostedMoveSpeed
-      value: 4
+      value: 3.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -511,7 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3066050f9194fac8f39291434f02da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FoodGenerator
-  foodPrefab: {fileID: 1415065633607315517, guid: a0cb72a66339041c8b2711f572c7a911, type: 3}
+  foodPrefabs: []
   player: {fileID: 355454509}
   radius: 10
   groundLayer:
@@ -2248,7 +2248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: moveSpeed
-      value: 2.3
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: initialEnergy
@@ -2256,7 +2256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: boostedMoveSpeed
-      value: 4
+      value: 3.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2300,7 +2300,7 @@ MonoBehaviour:
   isPlayer: 1
   playerHead: {fileID: 355454509}
   moveSpeed: 2
-  boostedMoveSpeed: 14
+  boostedMoveSpeed: 4
   rotateSpeed: 550
   playerBodyPrefab: {fileID: 7121407994503572563, guid: 8fdf9454eca8f434c8a460e9276686f8, type: 3}
   bodyScale: 0.2
@@ -2409,7 +2409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: moveSpeed
-      value: 2.3
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: initialEnergy
@@ -2417,7 +2417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: boostedMoveSpeed
-      value: 4
+      value: 3.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4214,7 +4214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: moveSpeed
-      value: 2.3
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: initialEnergy
@@ -4222,7 +4222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: boostedMoveSpeed
-      value: 4
+      value: 3.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}

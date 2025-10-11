@@ -1,7 +1,18 @@
+using System.Collections.Generic;
 using UnityEngine;
+
+
 public class FoodGenerator : MonoBehaviour
 {
-    public GameObject foodPrefab;
+
+    [System.Serializable]
+    public class Food
+    {
+        public GameObject foodPrefab;
+        public float scale;
+        public float energy;
+    }
+    public List<Food> foods;
     public GameObject player;
     public float radius = 10f;
     public LayerMask groundLayer;
@@ -41,9 +52,20 @@ public class FoodGenerator : MonoBehaviour
         }
     }
 
+    private Food? GetRandomFoodPrefab()
+    {
+        if (foods == null) return null;
+        if (foods.Count == 0) return null;
+
+
+        return foods[Random.Range(0, foods.Count)];
+
+    }
+
     public void StartSpawning()
     {
-        if (foodPrefab == null) return;
+        if (foods == null) return;
+        if (foods.Count == 0) return;
         if (!IsInvoking(nameof(InvokableGenerateFoodBatch)))
         {
             // Optional immediate spawn
@@ -137,15 +159,18 @@ public class FoodGenerator : MonoBehaviour
 
     public void GenerateSingleFood(Vector3? position = null, float maxScale = 0.25f, float minScale = 0.05f)
     {
+        Food food = GetRandomFoodPrefab();
+        if (food == null) return;
+        GameObject foodPrefab = food.foodPrefab;
         if (foodPrefab == null) return;
 
         Vector3? spawnPos = position ?? GetRandomPosition();
         if (spawnPos == null) return;
-        GameObject food = Instantiate(foodPrefab, spawnPos.Value, Quaternion.identity, transform);
+        GameObject foodObject = Instantiate(foodPrefab, spawnPos.Value, Quaternion.identity, transform);
         float randomScale = Random.Range(minScale, maxScale);
         //random color 
         Color randomColor = ColorUtil.GetRandomColor();
-        food.GetComponent<Renderer>().material.color = randomColor;
-        food.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
+        foodObject.GetComponent<Renderer>().material.color = randomColor;
+        foodObject.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
     }
 }
