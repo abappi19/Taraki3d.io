@@ -30,6 +30,14 @@ public class Follower : MonoBehaviour
             animationSpeed = 50f;
         }
 
+        if(target == null){
+            // Decrease the x rotation from current (33) to 29 if target is null
+            Vector3 currentEuler = transform.rotation.eulerAngles;
+            Vector3 desiredEuler = new Vector3(29f, currentEuler.y, currentEuler.z);
+            Quaternion desiredRotation = Quaternion.Euler(desiredEuler);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, 5f * Time.deltaTime);
+        }
+
         Vector3 targetPosition = lastTargetPosition + offsets[currentOffsetIndex];
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, animationSpeed * Time.deltaTime);
     }

@@ -1024,7 +1024,7 @@ MonoBehaviour:
   offsets:
   - {x: 0, y: 8.5, z: -13}
   - {x: 0, y: 13, z: -20.5}
-  - {x: 0, y: 15, z: -25}
+  - {x: 0, y: 15, z: -28}
   currentOffsetIndex: 0
 --- !u!1001 &544624752
 PrefabInstance:
