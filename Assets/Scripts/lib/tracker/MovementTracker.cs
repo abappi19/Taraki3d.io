@@ -59,7 +59,7 @@ public class MovementTracker
             // get speed by distance between target point and object
             float distance = Vector3.Distance(targetPoint.position, obj.transform.position);
 
-            float speed = (distance > 0.07f) ? 100f : moveSpeed;
+            float speed = (distance > 0.07f) ? 1000f : (distance < 0.1f) ? 0f : moveSpeed;
             obj.transform.position += direction * moveSpeed * Time.deltaTime;
 
             index++;

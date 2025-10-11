@@ -35,12 +35,11 @@ public class PlayerController : MonoBehaviour
     private float currentMoveSpeed;
     private bool isSpeedBoosted = false;
     private FoodGenerator foodGenerator;
-    private NavMeshAgent navMeshAgent;
 
 
     private void Awake()
     {
-        NID = new NormalizedInputDirection(inputType, Vector3.forward, true, playerHead);
+        NID = new NormalizedInputDirection(isPlayer ? inputType : InputType.AI, Vector3.forward, true, playerHead);
         //movement tracker for train 4 for sphare 2
         movementTracker = new MovementTracker(2, moveSpeed * bodyMovementMultiplier);
         playerBodies = new List<GameObject>();
@@ -52,7 +51,6 @@ public class PlayerController : MonoBehaviour
         {
             foodGenerator = FoodArea.GetComponent<FoodGenerator>();
         }
-        navMeshAgent = playerHead.GetComponent<NavMeshAgent>();
     }
 
 
@@ -75,16 +73,13 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        if (!isPlayer)
-        {
+        UpdateSpeedBoost();
+        cachedMoveDirection = NID.GetDirection();
+    }
 
-            Vector3 nearestFoodPosition = getNearestFoodPosition();
-            if (navMeshAgent == null) return;
-            navMeshAgent.destination = nearestFoodPosition;
-            // make player look at forward direction
-            playerHead.transform.LookAt(transform.position + transform.forward);
-            return;
-        }
+    private void UpdateSpeedBoost()
+    {
+
         bool newIsSpeedBoosted = getCurrentSpeedBoosted();
         if (newIsSpeedBoosted != isSpeedBoosted)
         {
@@ -96,7 +91,6 @@ public class PlayerController : MonoBehaviour
         {
             DecreaseHealth(0.3f * Time.deltaTime);
         }
-        cachedMoveDirection = NID.GetDirection();
     }
 
     void FixedUpdate()
@@ -111,7 +105,8 @@ public class PlayerController : MonoBehaviour
     private void FixedTransform(Vector3 moveDirection)
     {
 
-        if (isPlayer) UpdateHeadPosition(moveDirection);
+
+        UpdateHeadPosition(moveDirection);
 
         movementTracker.InsertMovementPoint(playerHead.transform.position, playerHead.transform.rotation);
 
@@ -239,25 +234,6 @@ public class PlayerController : MonoBehaviour
             DestroyGameObjectAndGenerateFood(body);
         }
 
-    }
-    private Vector3 getNearestFoodPosition()
-    {
-        // Pick a random food position first
-        Vector3 nearestPos = playerHead.transform.position;
-        GameObject[] foods = GameObject.FindGameObjectsWithTag("Food");
-        float nearestDist = float.MaxValue;
-        float searchRadius = 100f; // You can adjust search radius if you want a limit
-
-        foreach (var food in foods)
-        {
-            float dist = Vector3.Distance(playerHead.transform.position, food.transform.position);
-            if (dist < nearestDist && dist <= searchRadius)
-            {
-                nearestDist = dist;
-                nearestPos = food.transform.position;
-            }
-        }
-        return nearestPos;
     }
 
 }
