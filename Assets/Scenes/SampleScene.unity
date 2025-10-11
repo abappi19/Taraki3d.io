@@ -263,6 +263,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 76270478}
+    - target: {fileID: 8231774684986169374, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 8895352923855958678, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2
@@ -280,8 +284,16 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
+      propertyPath: moveSpeed
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: initialEnergy
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
+      propertyPath: boostedMoveSpeed
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1735,9 +1747,13 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2410162348793441800, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410162348793441800, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 18169f68430044f07b84d6c51a390f59, type: 2}
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 2899503208795161728, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2
@@ -2192,6 +2208,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1063869051}
+    - target: {fileID: 8231774684986169374, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 8895352923855958678, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2
@@ -2209,8 +2229,16 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
+      propertyPath: moveSpeed
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: initialEnergy
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
+      propertyPath: boostedMoveSpeed
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2253,7 +2281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   isPlayer: 1
   playerHead: {fileID: 355454509}
-  moveSpeed: 2
+  moveSpeed: 2.3
   boostedMoveSpeed: 5
   rotateSpeed: 550
   playerBodyPrefab: {fileID: 7121407994503572563, guid: 8fdf9454eca8f434c8a460e9276686f8, type: 3}
@@ -2341,6 +2369,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1194275315}
+    - target: {fileID: 8231774684986169374, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 8895352923855958678, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2
@@ -2358,8 +2390,16 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
+      propertyPath: moveSpeed
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: initialEnergy
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
+      propertyPath: boostedMoveSpeed
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4130,6 +4170,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1739558211}
+    - target: {fileID: 8231774684986169374, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8231774684986169374, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 8895352923855958678, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2
@@ -4147,8 +4195,16 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
+      propertyPath: moveSpeed
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
       propertyPath: initialEnergy
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9147220431619128925, guid: 05c2c7cb2c23941f98ea4538ac39a309, type: 3}
+      propertyPath: boostedMoveSpeed
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}

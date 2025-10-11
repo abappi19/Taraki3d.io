@@ -144,7 +144,7 @@ public class FoodGenerator : MonoBehaviour
         GameObject food = Instantiate(foodPrefab, spawnPos.Value, Quaternion.identity, transform);
         float randomScale = Random.Range(minScale, maxScale);
         //random color 
-        Color randomColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        Color randomColor = ColorUtil.GetRandomColor();
         food.GetComponent<Renderer>().material.color = randomColor;
         food.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
     }

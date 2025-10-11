@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private NormalizedInputDirection NID;
     private MovementTracker movementTracker;
     private List<GameObject> playerBodies;
+    private Color playerColor;
 
 
     private float energy;
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         NID = new NormalizedInputDirection(isPlayer ? inputType : InputType.AI, Vector3.forward, true, playerHead);
+        playerColor = ColorUtil.GetRandomColor();
         //movement tracker for train 4 for sphare 2
         movementTracker = new MovementTracker(2, moveSpeed * bodyMovementMultiplier);
         playerBodies = new List<GameObject>();
@@ -57,6 +59,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         energy = initialEnergy;
+        playerHead.GetComponent<Renderer>().material.color = playerColor;
         adjustBodyPart();
     }
 
@@ -201,6 +204,8 @@ public class PlayerController : MonoBehaviour
 
             body.transform.position = lastPlayerBodyPosition;
             body.transform.localScale = new Vector3(bodyScale, bodyScale, bodyScale);
+
+            body.GetComponent<Renderer>().material.color = playerColor;
             playerBodies.Add(body);
         }
     }
