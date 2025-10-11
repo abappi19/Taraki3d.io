@@ -593,6 +593,19 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &355454528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355454509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b12a7b43e00495585b123b75983c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MouthController
+  player: {fileID: 1116380269}
 --- !u!4 &360007877 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b4527a4598802d040a9f3ea7c4ac17e9, type: 3}
@@ -1010,7 +1023,8 @@ MonoBehaviour:
   target: {fileID: 355454509}
   offsets:
   - {x: 0, y: 8.5, z: -13}
-  - {x: 0, y: 2, z: -3.5}
+  - {x: 0, y: 18, z: -28}
+  - {x: 0, y: 19, z: -30}
   currentOffsetIndex: 0
 --- !u!1001 &544624752
 PrefabInstance:
@@ -1850,7 +1864,8 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1116380269}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1096760990919792262, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -1860,6 +1875,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8422713293563726555, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 355454522}
+    - targetCorrespondingSourceObject: {fileID: 8422713293563726555, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 355454528}
   m_SourcePrefab: {fileID: 100100000, guid: ee587f86ddb314fbdbd97c0adf999ef5, type: 3}
 --- !u!1001 &907470930
 PrefabInstance:
@@ -2281,8 +2299,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   isPlayer: 1
   playerHead: {fileID: 355454509}
-  moveSpeed: 2.3
-  boostedMoveSpeed: 5
+  moveSpeed: 2
+  boostedMoveSpeed: 14
   rotateSpeed: 550
   playerBodyPrefab: {fileID: 7121407994503572563, guid: 8fdf9454eca8f434c8a460e9276686f8, type: 3}
   bodyScale: 0.2

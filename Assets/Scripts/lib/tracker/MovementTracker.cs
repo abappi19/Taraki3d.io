@@ -15,34 +15,34 @@ public class MovementTracker
         }
     }
 
-    private int gapBetweenPoints;
+    // private int gapBetweenPoints;
     private float moveSpeed;
     private List<MovementPoint> movementPoints = new List<MovementPoint>();
 
-    public MovementTracker(int gapBetweenPoints, float moveSpeed)
+    public MovementTracker(float moveSpeed)
     {
-        this.gapBetweenPoints = gapBetweenPoints;
+        // this.gapBetweenPoints = gapBetweenPoints;
         this.moveSpeed = moveSpeed;
     }
-    public void setMoveSpeed(float moveSpeed)
-    {
-        this.moveSpeed = moveSpeed;
-    }
+    // public void setMoveSpeed(float moveSpeed)
+    // {
+    //     this.moveSpeed = moveSpeed;
+    // }
 
     public void InsertMovementPoint(Vector3 position, Quaternion rotation)
     {
         movementPoints.Insert(0, new MovementPoint(position, rotation));
     }
 
-    private int? GetPointByGap(Vector3 fromPosition, int startIndex)
-    {
-        for (int i = startIndex; i < movementPoints.Count; i++)
-        {
-            if (Vector3.Distance(fromPosition, movementPoints[i].position) > gapBetweenPoints)
-                return i;
-        }
-        return null;
-    }
+    // private int? GetPointByGap(Vector3 fromPosition, int startIndex)
+    // {
+    //     for (int i = startIndex; i < movementPoints.Count; i++)
+    //     {
+    //         if (Vector3.Distance(fromPosition, movementPoints[i].position) > gapBetweenPoints)
+    //             return i;
+    //     }
+    //     return null;
+    // }
 
     public void FollowMovement(List<GameObject> objects)
     {
@@ -51,18 +51,17 @@ public class MovementTracker
         int lastUsedIndex = 0;
         foreach (var obj in objects)
         {
-            lastUsedIndex = Mathf.Min(index * gapBetweenPoints, movementPoints.Count - 1);
+            lastUsedIndex = Mathf.Min(index, movementPoints.Count - 1);
+            index++;
+
+
             MovementPoint targetPoint = movementPoints[lastUsedIndex];
             Vector3 direction = targetPoint.position - obj.transform.position;
-            obj.transform.LookAt(targetPoint.position);
-            // int speed = 4; // for train
-            // get speed by distance between target point and object
             float distance = Vector3.Distance(targetPoint.position, obj.transform.position);
 
-            float speed = (distance > 0.2f) ? 1000f : (distance < 0.1f) ? 0f : moveSpeed;
-            obj.transform.position += direction * moveSpeed * Time.deltaTime;
+            float speed = moveSpeed * distance * 35f;
+            obj.transform.position += direction * speed * Time.deltaTime;
 
-            index++;
         }
 
 

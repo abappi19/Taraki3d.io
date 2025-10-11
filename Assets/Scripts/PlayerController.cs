@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
     public GameObject playerBodyPrefab;
     public float bodyScale = 1f;
     public float initialEnergy = 10f;
-    private float bodyMovementMultiplier = 6f; // for train 2.5 for sphare 6
     [Header("Input Settings")]
     public InputType inputType = InputType.Keyboard;
     private Vector3 cachedMoveDirection;
@@ -43,10 +42,24 @@ public class PlayerController : MonoBehaviour
         NID = new NormalizedInputDirection(isPlayer ? inputType : InputType.AI, Vector3.forward, true, playerHead);
         playerColor = ColorUtil.GetRandomColor();
         //movement tracker for train 4 for sphare 2
-        movementTracker = new MovementTracker(2, moveSpeed * bodyMovementMultiplier);
+        movementTracker = new MovementTracker(moveSpeed);
         playerBodies = new List<GameObject>();
         currentMoveSpeed = moveSpeed;
 
+
+        // Setup NavMeshAgent for AI behavior
+        if (!isPlayer)
+        {
+            NavMeshAgent navMeshAgent = playerHead.GetComponent<NavMeshAgent>();
+            if (navMeshAgent == null)
+            {
+                navMeshAgent = playerHead.AddComponent<NavMeshAgent>();
+            }
+            navMeshAgent.speed = 0;
+            navMeshAgent.acceleration = 0;
+            navMeshAgent.angularSpeed = 0;
+            navMeshAgent.stoppingDistance = 1f;
+        }
 
         GameObject FoodArea = GameObject.FindGameObjectWithTag("FoodArea");
         if (FoodArea != null)
@@ -88,7 +101,7 @@ public class PlayerController : MonoBehaviour
         {
             isSpeedBoosted = newIsSpeedBoosted;
             currentMoveSpeed = isSpeedBoosted ? boostedMoveSpeed : moveSpeed;
-            movementTracker.setMoveSpeed(currentMoveSpeed * bodyMovementMultiplier);
+            // movementTracker.setMoveSpeed(currentMoveSpeed * bodyMovementMultiplier);
         }
         if (isSpeedBoosted)
         {
@@ -229,6 +242,13 @@ public class PlayerController : MonoBehaviour
     }
     public void DestroyPlayer()
     {
+        if (isPlayer)
+        {
+            Follower follower = Camera.main.GetComponent<Follower>();
+            Debug.Log("follower: " + follower);
+            follower.SetCurrentOffsetIndex(2);
+        }
+
         if (foodGenerator != null && isPlayer)
         {
             foodGenerator.StopSpawning();
