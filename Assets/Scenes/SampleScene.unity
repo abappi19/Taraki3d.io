@@ -519,7 +519,7 @@ MonoBehaviour:
     m_Bits: 8
   surfaceYOffset: 0.05
   spawnIntervalSeconds: 1
-  maxFoodPerBatch: 10
+  maxFoodPerBatch: 5
   autoStart: 1
   maxTotalFood: 100
   minTotalFood: 90
